@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}
+	<div>
+        <h1>Files</h1>
+    </div>
+{% endblock title %}
+
+{% block upload %}
+	{% include "upload.html" %}
+{% endblock upload %}
+
+{% block main %}
+    <div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Filename</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for file in files %}
+                    <tr>
+                        <td><a href="/file/{{ file }}">{{ file }}</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock main %}

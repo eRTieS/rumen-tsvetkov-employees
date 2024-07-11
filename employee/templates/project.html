@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block title %}
+	<div>
+        <h1>Employee</h1>
+    </div>
+{% endblock title %}
+
+{% block main %}
+    <div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">EmpID</th>
+                    <th scope="col">ProjectID</th>
+                    <th scope="col">DateFrom</th>
+                    <th scope="col">DateTo</th>
+                    <th scope="col">Days</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for employee in employees %}
+                    <tr>
+                        {% if employee.emp_id %}
+                            <td><a href="/employee/{{ employee.emp_id }}">{{ employee.emp_id }}</a></td>
+                        {% else %}
+                            <td>{{ employee.emp_id }}</td>
+                        {% endif %}
+
+                        {% if employee.project_id %}
+                            <td><a href="/project/{{ employee.project_id }}">{{ employee.project_id }}</a></td>
+                        {% else %}
+                            <td>{{ employee.project_id }}</td>
+                        {% endif %}
+
+                        <td>{{ employee.date_from }}</td>
+                        <td>{{ employee.date_to }}</td>
+                        <td>{{ employee.days }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <h1>Longest period pair</h1>
+    </div>
+    <div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">EmpID 1</th>
+                    <th scope="col">EmpID 2</th>
+                    <th scope="col">Days</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ pair.employee_1.emp_id }}</td>
+                    <td>{{ pair.employee_2.emp_id }}</td>
+                    <td>{{ pair.days }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+{% endblock main %}

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}
+	<div>
+        <h1>Longest period pair</h1>
+    </div>
+{% endblock title %}
+
+{% block main %}
+    <div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">EmpID 1</th>
+                    <th scope="col">EmpID 2</th>
+                    <th scope="col">Days</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ pair.employee_1.emp_id }}</td>
+                    <td>{{ pair.employee_2.emp_id }}</td>
+                    <td>{{ pair.days }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+{% endblock main %}
