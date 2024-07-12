@@ -19,6 +19,12 @@ CSV example:
     
     ```
 
+### Supported date formats
+Date separator is not required and can be different characters.
+Example date: 10 July 2024
+
+10-07-2024, 10-Jul-2024, 10-July-2024, 07-10-2024, Jul-10-2024, July-10-2024, 2024-07-10, 2024-Jul-10, 2024-July-10
+
 ## Installation
 
 1. Clone the repo

@@ -9,13 +9,12 @@ Classes:
     - EmployeesExecutor: Employees executor
 """
 
-
 import sys
 
 from csv import DictReader
 from datetime import datetime, timedelta
+from typing import Union
 
-from employee.const import DATE_FORMAT
 from employee.validate import ValidationError, Validator
 
 
@@ -31,15 +30,14 @@ class EmployeeData:
         'DateTo': 'date_to'
     }
 
-    def __init__(self, emp_id: str, project_id: str, date_from: str, date_to: str):
-        self.emp_id: int = int(emp_id)
-        self.project_id: int = int(project_id)
-        self.date_from: datetime = datetime.strptime(date_from, DATE_FORMAT)
+    def __init__(self, emp_id: int, project_id: int, date_from: datetime, date_to: Union[datetime, None]):
+        self.emp_id: int = emp_id
+        self.project_id: int = project_id
+        self.date_from: datetime = date_from
+        self.date_to: Union[datetime, None] = date_to
 
-        try:
-            self.date_to: datetime = datetime.strptime(date_to, DATE_FORMAT)
-        except ValueError:
-            self.date_to: datetime = datetime.now()
+        if self.date_to is None:
+            self.date_to = datetime.now()
 
         self.days: int = (self.date_to - self.date_from).days
 
@@ -53,9 +51,8 @@ class EmployeeData:
         :return:
         """
         mapped: dict = cls.map_employee_data(csv_record)
-        EmployeeData.validate(**mapped)
 
-        return cls(**mapped)
+        return cls(*EmployeeData.validate(**mapped))
 
     @staticmethod
     def validate(emp_id, project_id: str, date_from: str, date_to: str) -> None:
@@ -70,7 +67,7 @@ class EmployeeData:
         """
         validator = Validator()
 
-        validator.validate(emp_id, project_id, date_from, date_to)
+        return validator.validate(emp_id, project_id, date_from, date_to)
 
     @staticmethod
     def map_employee_data(employee_data: dict) -> dict:
